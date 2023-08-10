@@ -1,24 +1,20 @@
-function calculateChange(jarCount) {
-    const jarPrice = 40;
-    const discountThreshold = 3;
-    const discountPrice = 100;
+const Strawberry = (orders, cash) => {
+  const jarPrice = 40;
+  const discountJars = 3;
+  const discountPrice = 100;
 
-    let totalCost = jarCount * jarPrice;
-    if (jarCount >= discountThreshold) {
-        let discountedJars = Math.floor(jarCount / discountThreshold);
-        totalCost -= discountedJars * (jarPrice - (discountPrice / discountThreshold));
-    }
+  const totalJars = orders;
+  const totalDiscountSets = Math.floor(totalJars / discountJars);
 
-    return totalCost;
-}
+  const regularJars = totalJars - (totalDiscountSets * discountJars);
 
-function handleTransaction(jarCount, amountPaid) {
-    const totalCost = calculateChange(jarCount);
-    const change = amountPaid - totalCost;
+  const totalPrice = (totalDiscountSets * discountPrice) + (regularJars * jarPrice);
 
-    if (change >= 0) {
-        return "Thank you for your purchase! Your change is " + change + " pesos.";
-    } else {
-        return "Sorry, you still owe " + (-change) + " pesos.";
-    }
-}
+  const change = cash - totalPrice;
+
+  if (change >= 0) {
+    return `Change: ${change}`;
+  } else {
+    return "Insufficient Funds";
+  }
+};
